@@ -1,0 +1,28 @@
+body{
+    background-color: #04a6eb;
+    color: #fdffff;
+    margin-right: auto;
+    margin-left: auto;
+    width: 500px;
+}
+button{
+    padding: 5px 20px;
+    background-color: #337ab7;
+    color: #fdffff;
+}
+#sinhou{
+    height: 30px;
+    border-radius: 3px;
+    border: 2px solid#ddd;
+}
+#sinhou:focus{
+    border: 2px solid#ff9900;
+}
+#nyuryoku{
+    height: 30px;
+    border-radius: 3px;
+    border: 2px solid#ddd;
+}
+#nyuryoku:focus{
+    border: 2px solid#ff9900;
+}
