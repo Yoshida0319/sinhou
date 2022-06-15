@@ -2,9 +2,6 @@ const nyuryoku=document.getElementById('nyuryoku');
 const sinhou=document.getElementById('sinhou')
 const botann=document.getElementById('botan');
 const re=document.getElementById('result-area')
-let a=0;
-let b=1;
-let i=0;
 nyuryoku.onkeydown=event=>{
     if(event.key==='Enter'){
        botann.onclick();
@@ -37,31 +34,58 @@ botann.onclick = ()=>{
         paragraph.innerText=result;
         re.appendChild(paragraph);
     }else{
-        kaisi(x,y,0);
+        kaisi(x,y,0,[],1,0);
     }
 }
-function kaisi(my,me,a) {
-    if (my===0){
+function kaisi(my,me,a,c,b,i) {
+    if (my===0 && me<11){
         re.innerText="";
         const paragraph=document.createElement('p');
         const result=(a);
         paragraph.innerText=result;
         re.appendChild(paragraph);
+    }else if(my===0){
+        re.innerText="";
+        const paragraph=document.createElement('p');
+        const result=(c);
+        paragraph.innerText=result;
+        re.appendChild(paragraph);
     }else if(my > b) {
-        i++
+        i++;
         b=b*me;
-        kaisi(my,me,a);
+        kaisi(my,me,a,c,b,i);
     }else if(my < b){
         b=b/me;
         i=i-1;
-        a=a+10**i;
         my=my-b;
-        i=0
-        b=1
-        kaisi(my,me,a);
-    }else if(my === b){
+        keta(my,me,b,a,i,1,c);
+    }else{
         a=a+10**i;
+        c.push(1);
+        for (let j = 0; j < i; j++) {
+            c.push(0);
+        }
+        kaisi(0,me,a,c,1,0);
+    }
+}
+function keta(my,me,b,a,i,d,c){
+    if (my > b) {
+        d++;
         my=my-b;
-        kaisi(my,me,a);
+        keta(my,me,b,a,i,d,c);
+    }else if(my == b){
+        d++;
+        e=10**i;
+        a=a+e*d;
+        c.push(d);
+        for (let j = 0; j < i; j++) {
+            c.push(0);
+        }
+        kaisi(0,me,a,c,1,0);
+    }else{
+        e=10**i;
+        a=a+e*d;
+        c.push(d);
+        kaisi(my,me,a,c,1,0);
     }
 }
