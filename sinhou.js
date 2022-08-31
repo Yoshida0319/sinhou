@@ -21,7 +21,7 @@ botann.onclick = ()=>{
     var y=parseInt(yy);
     if (l===0 || ll===0) {
         return;
-    }else if(isNaN(xx) || isNaN(yy) || x < 0 || y < 0){
+    }else if(isNaN(xx) || isNaN(yy) || x <= 0 || y < 0){
         re.innerText="";
         const paragraph=document.createElement('p');
         const result=("自然数を入力してください");
@@ -34,58 +34,34 @@ botann.onclick = ()=>{
         paragraph.innerText=result;
         re.appendChild(paragraph);
     }else{
-        kaisi(x,y,0,[],1,0);
+        saikai(x,y,[],1,0,0);
     }
 }
-function kaisi(my,me,a,c,b,i) {
-    if (my===0 && me<11){
+function saikai(my,me,a,b,c,d){
+    if(c===1 && my===0){
+        a.push(d);
         re.innerText="";
         const paragraph=document.createElement('p');
-        const result=(a);
-        paragraph.innerText=result;
+        paragraph.innerText=a;
         re.appendChild(paragraph);
-    }else if(my===0){
-        re.innerText="";
-        const paragraph=document.createElement('p');
-        const result=(c);
-        paragraph.innerText=result;
-        re.appendChild(paragraph);
-    }else if(my > b) {
-        i++;
-        b=b*me;
-        kaisi(my,me,a,c,b,i);
-    }else if(my < b){
+    }else if(c===1 && my>=b){
+        my=my-b;
+        d++;
+        saikai(my,me,a,b,1,d);
+    }else if(c===1 && b===1){
+        a.push(d);
+        saikai(my,me,a,b,1,0);
+    }else if(c===1){
+        a.push(d);
         b=b/me;
-        i=i-1;
-        my=my-b;
-        keta(my,me,b,a,i,1,c);
-    }else{
-        a=a+10**i;
-        c.push(1);
-        for (let j = 0; j < i; j++) {
-            c.push(0);
-        }
-        kaisi(0,me,a,c,1,0);
-    }
-}
-function keta(my,me,b,a,i,d,c){
-    if (my > b) {
-        d++;
-        my=my-b;
-        keta(my,me,b,a,i,d,c);
-    }else if(my == b){
-        d++;
-        e=10**i;
-        a=a+e*d;
-        c.push(d);
-        for (let j = 0; j < i; j++) {
-            c.push(0);
-        }
-        kaisi(0,me,a,c,1,0);
-    }else{
-        e=10**i;
-        a=a+e*d;
-        c.push(d);
-        kaisi(my,me,a,c,1,0);
+        saikai(my,me,a,b,1,0);
+    }else if(my>b){
+        b=b*me;
+        saikai(my,me,[],b,0,0);
+    }else if(my<b){
+        b=b/me;
+        saikai(my,me,[],b,1,0);
+    }else if(my===b){
+        saikai(my,me,[],b,1,0);
     }
 }
